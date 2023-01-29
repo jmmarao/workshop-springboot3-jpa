@@ -1,0 +1,29 @@
+package com.educandoweb.workshopspringboot3jpa.controllers;
+
+import com.educandoweb.workshopspringboot3jpa.entities.Category;
+import com.educandoweb.workshopspringboot3jpa.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/categories")
+public class CategoryController {
+    @Autowired
+    private CategoryService categoryService;
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Category> findCategoryByIdController(@PathVariable Long id) {
+        return ResponseEntity.ok().body(categoryService.findCategoryById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Category>> findCategoriesController() {
+        return ResponseEntity.ok().body(categoryService.findCategories());
+    }
+}

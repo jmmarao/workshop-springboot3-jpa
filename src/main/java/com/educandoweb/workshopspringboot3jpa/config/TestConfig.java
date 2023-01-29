@@ -1,8 +1,10 @@
 package com.educandoweb.workshopspringboot3jpa.config;
 
+import com.educandoweb.workshopspringboot3jpa.entities.Category;
 import com.educandoweb.workshopspringboot3jpa.entities.Order;
 import com.educandoweb.workshopspringboot3jpa.entities.User;
 import com.educandoweb.workshopspringboot3jpa.entities.enums.OrderStatus;
+import com.educandoweb.workshopspringboot3jpa.repositories.CategoryRepository;
 import com.educandoweb.workshopspringboot3jpa.repositories.OrderRepository;
 import com.educandoweb.workshopspringboot3jpa.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,17 @@ public class TestConfig implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
+        Category category1 = new Category(null, "Electronics");
+        Category category2 = new Category(null, "Books");
+        Category category3 = new Category(null, "Computers");
+        
+        categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
+
         User user1 = new User(null, "Scarlet Witch", "scarlet@email.com", "00000-0000", "witch123");
         User user2 = new User(null, "Black Panther", "panther@email.com", "11111-1111", "wakanda123");
 
@@ -32,5 +42,13 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(user1, user2));
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+
+//Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+//Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+//Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+//Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+//Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
+
     }
 }
