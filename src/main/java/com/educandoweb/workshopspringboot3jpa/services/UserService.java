@@ -2,10 +2,12 @@ package com.educandoweb.workshopspringboot3jpa.services;
 
 import com.educandoweb.workshopspringboot3jpa.entities.User;
 import com.educandoweb.workshopspringboot3jpa.repositories.UserRepository;
+import com.educandoweb.workshopspringboot3jpa.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -13,7 +15,8 @@ public class UserService {
     private UserRepository userRepository;
 
     public User findUserById(Long id) {
-        return userRepository.findById(id).get();
+        Optional<User> userToFind = userRepository.findById(id);
+        return userToFind.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public List<User> findUsers() {
