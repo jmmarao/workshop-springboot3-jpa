@@ -3,6 +3,7 @@ package com.educandoweb.workshopspringboot3jpa.config;
 import com.educandoweb.workshopspringboot3jpa.entities.Category;
 import com.educandoweb.workshopspringboot3jpa.entities.Order;
 import com.educandoweb.workshopspringboot3jpa.entities.OrderItem;
+import com.educandoweb.workshopspringboot3jpa.entities.Payment;
 import com.educandoweb.workshopspringboot3jpa.entities.Product;
 import com.educandoweb.workshopspringboot3jpa.entities.User;
 import com.educandoweb.workshopspringboot3jpa.entities.enums.OrderStatus;
@@ -71,5 +72,9 @@ public class TestConfig implements CommandLineRunner {
         OrderItem orderItem3 = new OrderItem(order2, product3, 2, product1.getPrice());
         OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
         orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+
+        Payment payment = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), order1);
+        order1.setPayment(payment);
+        orderRepository.save(order1);
     }
 }
